@@ -1,0 +1,45 @@
+@(posts: List[Post])(implicit userOpt: Option[User] = None, flash: Flash)
+
+@main {
+    <div class="index-page">
+        <div class="row">
+            <div class="small-12 columns index-caption">
+                Find pals. Exchange photos. View stories.
+            </div>
+        </div>
+        <div class="row blog-content">
+            <div class="small-2 columns">
+                <div class="subtitle">
+                    find a pal.
+                </div>
+                <div class="explanation">
+                    Trade photos to get a glimpse of others lives and share your own.
+                </div>
+                <div class="subtitle">
+                    how it works...
+                </div>
+                <div class="explanation">
+                    Exchange photos at a daily or weekly frequency. Only when both pals upload will photos be displayed.
+                </div>
+            </div>
+            <div class="small-10 columns">
+                <div class="row recent-caption">
+                    <div class="small-12 columns column-left">
+                        recent exchanges...
+                    </div>
+                </div>
+                <div class="scroll">
+                    @posts.map { p =>
+                        <div class="row post-images">
+                            @p.images.zip(List("column-left", "column-right")).map { i =>
+                                <div class="small-6 columns @i._2">
+                                    <img src="@routes.Application.image(i._1.id.stringify)"/>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

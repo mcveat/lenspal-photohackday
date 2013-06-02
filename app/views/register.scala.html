@@ -1,0 +1,8 @@
+@(form: Form[Registration])
+
+    @helper.form(action = routes.Application.doRegister) {
+        @helper.inputText(form("username"), '_showConstraints -> false)
+        @helper.inputPassword(form("password"), '_showConstraints -> false)
+        @helper.inputText(form("email"), '_showConstraints -> false)
+        <button type="submit">Register!</button>
+    }

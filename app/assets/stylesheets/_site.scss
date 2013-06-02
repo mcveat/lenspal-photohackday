@@ -1,0 +1,138 @@
+@font-face {
+  font-family: franklin;
+  src: url('/assets/fonts/Franklin.ttf');
+}
+
+@font-face {
+  font-family: georgia;
+  src: url('/assets/fonts/georgiai.ttf')
+}
+
+body {
+  background: none;
+}
+
+.title-area .name h1 a {
+  font-family: franklin;
+  color: black;
+  font-size: 48px;
+  font-weight: normal;
+}
+
+hr.top {
+  background-color: #f0f0f0;
+  border-width: 2px;
+  margin: 0;
+  width: 93%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+}
+
+.alert-box {
+  width: 93%;
+  margin-left: auto;
+  margin-right: auto;
+  border-width: 0px;
+}
+
+.reveal-modal {
+  width: 40%;
+  margin-left: -20%;
+
+  h2 {
+    font-size: emCalc(24px);
+    font-family: franklin;
+    font-weight: normal;
+  }
+
+  hr.top {
+    width: 100%;
+  }
+
+  span.register-caption {
+    font-family: georgia;
+    font-style: italic;
+  }
+
+  .gray-button {
+    @include button-base;
+    @include button-size;
+    @include button-style(#bdbdbd, 0, false);
+    width: 100%;
+  }
+
+  div > .gray-button {
+    margin-top: 7px;
+  }
+
+}
+
+.blog-page, .index-page {
+  margin-top: 32px;
+
+  & > .row {
+    max-width: 95.5%;
+  }
+}
+
+div.blog-title, div.index-caption {
+  font-family: georgia;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: italic;
+}
+
+div.index-caption {
+  font-size: 24px;
+  padding-left: 16px;
+}
+
+.row.blog-content {
+  margin-top: 32px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.upload, .explanation {
+  color: $lp-main-gray;
+  font-weight: normal;
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+.explanation {
+  margin-bottom: 20px;
+  line-height: 15px;
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.row.post-date, .row.recent-caption {
+  margin-bottom: 20px;
+}
+
+.row.post-images {
+  margin-bottom: 88px;
+}
+
+.post-date, .recent-caption {
+  font-weight: normal;
+  font-family: franklin;
+  font-size: 14px;
+}
+
+.column-left {
+  padding-left: 40px;
+  padding-right: 0px;
+}
+
+.column-right {
+  padding-right: 25px;
+  padding-left: 15px;
+}
+
+.scroll {
+  overflow-x: hidden;
+  overflow-y: auto;
+}

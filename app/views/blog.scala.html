@@ -1,0 +1,50 @@
+@(blog: Blog, users: List[User])(implicit userOpt: Option[User], flash: Flash)
+
+@main {
+    <div class="blog-page">
+        <div class="row">
+            <div class="small-12 columns blog-title">
+            @blog.name.split(" ").map(_.capitalize).mkString(" ")
+            </div>
+        </div>
+        <div class="row blog-content">
+            <div class="small-2 columns">
+                <div>
+                    @users.map(_.username).mkString(" / ")
+                </div>
+                @userOpt.map { user =>
+                    @if(blog.ownsBlog(user)) {
+                        <div class="upload">
+                            @if(blog.canPost(user)) {
+                                @helper.form(action = routes.Application.upload(blog.url), 'enctype -> "multipart/form-data") {
+                                    <input type="file" name="picture">
+                                    <p>
+                                        <input type="submit">
+                                    </p>
+                                }
+                            } else {
+                                waiting for lenspal to respond
+                            }
+                        </div>
+                    }
+                }
+            </div>
+            <div class="small-10 columns scroll">
+                @blog.visiblePosts.map { p =>
+                    <div class="row post-date">
+                        <div class="small-12 columns column-left">
+                            @p.prettyDate
+                        </div>
+                    </div>
+                    <div class="row post-images">
+                        @p.images.zip(List("column-left", "column-right")).map { i =>
+                            <div class="small-6 columns @i._2">
+                                <img src="@routes.Application.image(i._1.id.stringify)"/>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,118 @@
+@(content: Html)(implicit userOpt: Option[User], flash: Flash)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>lenspal</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+        <script src="@routes.Assets.at("javascripts/vendor/custom.modernizr.js")"></script>
+    </head>
+    <body>
+        <nav class="top-bar">
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="/">lenspal</a></h1>
+                </li>
+            </ul>
+            <section class="top-bar-section">
+                <ul class="right">
+                    @userOpt.map { u =>
+                        <li>
+                            @userOpt.flatMap(_.blog).map { b =>
+                                <a href="@routes.Application.blog(b)">@u.username</a>
+                            }.getOrElse {
+                                <a href="#">@u.username</a>
+                            }
+                        </li>
+                        <li><a href="@routes.Application.logout">logout</a></li>
+                    }.getOrElse {
+                        <li><a href="#" data-reveal-id="login-register-modal">login/register</a></li>
+                        <div id="login-register-modal" class="reveal-modal">
+                            <h2>login / register</h2>
+                            <hr class="top"/>
+                            <form action="/register" method="POST">
+                                <div class="row">
+                                    <div class="small-12 small-center columns">
+                                        <div class="row">
+                                            <div class="small-2 columns">
+                                                <label for="right-label" class="left inline">username</label>
+                                            </div>
+                                            <div class="small-7 columns">
+                                                <input type="text" id="username" name="username">
+                                            </div>
+                                            <div class="small-3 columns">&nbsp;</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="small-2 columns">
+                                                <label for="right-label" class="left inline">password</label>
+                                            </div>
+                                            <div class="small-7 columns">
+                                                <input type="password" id="password" name="password">
+                                            </div>
+                                            <div class="small-3 columns">
+                                                <a class="gray-button" href="#" id="login-button">login</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="small-12 columns">
+                                        <span class="register-caption">Register here to find a pal.</span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="small-12 small-center columns">
+                                        <div class="row">
+                                            <div class="small-2 columns">
+                                                <label for="right-label" class="left inline">email</label>
+                                            </div>
+                                            <div class="small-7 columns">
+                                                <input type="text" id="email" name="email">
+                                            </div>
+                                            <div class="small-3 columns">
+                                                <a class="gray-button" id="register-button">register</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <hr class="top">
+                            <div class="row">
+                                <div class="small-12 columns">
+                                    <span class="register-caption">
+                                        Once you receive confirmation on being matched with a pal you can access your
+                                        shared correspondence page to upload and view photos.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </ul>
+            </section>
+        </nav>
+        <hr class="top"/>
+        @flash.get("info").map { i =>
+            <div data-alert class="alert-box secondary">
+                @i
+                <a href="#" class="close">&times;</a>
+            </div>
+        }
+
+        @content
+
+        <script>
+            document.write('<script src=/assets/javascripts/vendor/' + ('__proto__' in {} ? 'zepto' : 'jquery') + '.js><\/script>');
+        </script>
+        <script src="@routes.Assets.at("javascripts/foundation/foundation.js")"></script>
+        <script src="@routes.Assets.at("javascripts/foundation/foundation.alerts.js")"></script>
+        <script src="@routes.Assets.at("javascripts/foundation/foundation.forms.js")"></script>
+        <script src="@routes.Assets.at("javascripts/foundation/foundation.section.js")"></script>
+        <script src="@routes.Assets.at("javascripts/foundation/foundation.tooltips.js")"></script>
+        <script src="@routes.Assets.at("javascripts/foundation/foundation.topbar.js")"></script>
+        <script src="@routes.Assets.at("javascripts/foundation/foundation.reveal.js")"></script>
+        <script src="@routes.Assets.at("javascripts/foundation/foundation.orbit.js")"></script>
+        <script src="@routes.Assets.at("javascripts/main.js")"></script>
+    </body>
+</html>
